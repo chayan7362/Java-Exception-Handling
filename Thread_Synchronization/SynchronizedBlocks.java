@@ -1,18 +1,18 @@
 package Thread_Synchronization;
 
-/**
- *  Thread synchronized using Synchronized Methods
- */
+
+// Thread Synchronized using Synchronized Blocks
+
 class Task  
 {
-    synchronized public void PrintNum1() 
+    public void PrintNum1() 
     {
         for(int i=0;i<=5;i++)
         {
             System.out.println("PrintNum1 = "+i);
         }
     }
-    synchronized public void printNum2()
+    public void printNum2()
     {
         for(int i=5;i>=1;i--)
         {
@@ -31,7 +31,9 @@ class ThreadOne extends Thread
     @Override
     public void run()
     {
-        t1.PrintNum1();
+        synchronized(t1){
+            t1.PrintNum1();
+        }
     }
 }
 class ThreadTwo extends Thread
@@ -44,10 +46,13 @@ class ThreadTwo extends Thread
     @Override
     public void run()
     {
+        synchronized(t1) {
         t1.printNum2();
+        }
     }
 }
-public class SynchronizedMethods {
+
+public class SynchronizedBlocks {
     public static void main(String[] args) {
         Task Task = new Task();
         ThreadOne t1 = new ThreadOne(Task);
